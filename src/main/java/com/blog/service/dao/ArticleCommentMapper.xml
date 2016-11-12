@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.blog.service.dao.ArticleCommentDao">
+
+	<resultMap id="articleComment" type="ArticleComment">
+		<id property="id" column="id"/>
+		<result property="userId" column="user_id"/>
+		<result property="articleId" column="article_id"/>
+		<result property="content" column="content"/>
+		<result property="isDelete" column="is_delete"/>
+		<result property="createAt" column="create_at"/>
+	</resultMap>
+	
+	<resultMap id="articleCommentVo" type="ArticleCommentVo">
+		<id property="id" column="id"/>
+		<result property="userId" column="user_id"/>
+		<result property="email" column="email"/>
+		<result property="username" column="username"/>
+		<result property="articleId" column="article_id"/>
+		<result property="content" column="content"/>
+		<result property="isDelete" column="is_delete"/>
+		<result property="createAt" column="create_at"/>
+	</resultMap>
+	
+	<insert id="insert" parameterType="articleComment" useGeneratedKeys="false" keyProperty="id">
+		insert into article_comment(id,user_id,article_id,content,is_delete,create_at)
+		values(#{id},#{userId},#{articleId},#{content},#{isDelete},#{createAt});
+	</insert>
+	
+    <select id="findByConditions" resultMap="articleCommentVo">
+            select ac.*,u.email,u.username from article_comment ac 
+            left join user u on (u.id=ac.user_id)
+            where 1=1
+             <if test="sqlParams.articleId != null">
+	    		and ac.article_id = #{sqlParams.articleId}
+	    	</if>
+	    	<if test="sqlParams.userId != null">
+	    		and ac.user_id = #{sqlParams.userId}
+	    	</if>
+	    	<if test="sqlParams.startTime != null">
+	    		and ac.create_at &gt;= #{sqlParams.startTime}
+	    	</if>
+	    	<if test="sqlParams.endTime!= null">
+	    		and ac.create_at &lt;= #{sqlParams.endTime}
+	    	</if>
+            order by ac.create_at asc
+            limit #{start},#{size}
+    </select>
+    
+    <select id="countByConditions" parameterType="Map" resultType="Long">
+            select count(*) from article_comment a where 1=1
+            <if test="sqlParams.articleId != null">
+	    		and a.article_id = #{sqlParams.articleId}
+	    	</if>
+	    	<if test="sqlParams.userId != null">
+	    		and a.user_id = #{sqlParams.userId}
+	    	</if>
+	    	<if test="sqlParams.startTime != null">
+	    		and a.create_at &gt;= #{sqlParams.startTime}
+	    	</if>
+	    	<if test="sqlParams.endTime!= null">
+	    		and a.create_at &lt;= #{sqlParams.endTime}
+	    	</if>
+            order by create_at asc
+    </select>
+    
+</mapper>

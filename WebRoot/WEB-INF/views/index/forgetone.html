@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+	<head>
+		<title>找回密码</title>
+		<#include "/common/_include.html">
+	</head>
+	<body>
+		<!-- 头部引用 -->
+		<#include "/common/_header.html">
+		<@headerPage currentPage="index"/>
+		<!--内容开始-->
+		<div class="container">
+			<div class="panel panel-default bo-form">
+				<div class="panel-heading text-center">
+					<h3 class="panel-title">找回密码</h3>
+				</div>
+				<div class="panel-body">
+					<#if __message??><div class="alert alert-danger" role="alert">${__message!}</div></#if>
+					<div class="alert alert-warning _message" style="display: none;" role="alert"></div>
+					<form action="/doforgetpasswd" method="post">
+						<input type="hidden" name="bk" value="${bk!}" />
+						<div class="input-group input-group-lg bo-mtb20">
+							<span class="input-group-addon">用户</span>
+							<input type="text" name="email" class="form-control" placeholder="请输入用户名" aria-describedby="basic-addon1">
+						</div>
+						<div class="input-group input-group-lg bo-mtb20">
+							<span class="input-group-addon" id="basic-addon1">密码</span>
+							<input type="password" name="passwd" class="form-control" placeholder="请输入密码" aria-describedby="basic-addon1">
+						</div>
+						<div class="input-group input-group-lg bo-mtb20">
+							<span class="input-group-addon" id="basic-addon1">确认</span>
+							<input type="password" name="repasswd" class="form-control" placeholder="请确认密码" aria-describedby="basic-addon1">
+						</div>
+						<div class="input-group input-group-lg bo-mtb20">
+							<input type="text" style="max-width: 200px;" name="emailCode" class="form-control" placeholder="请输入验证码" aria-describedby="basic-addon1">
+							<button type="button" style="margin-top: 5px;margin-left: 20px;" class="btn btn-default send-email-code">获取验证码</button>
+						</div>
+						<div class="input-group bo-mtb20 text-center" style="width: 100%;" role="group" aria-label="...">
+							<button type="button" class="btn btn-default" onclick="$('form').submit();">重置密码</button>
+						</div>
+					</form>
+					<div>
+						<span class="pull-right"><a href="/login">返回登录</a></span>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!--内容结束-->
+		<#include "/common/_footer.html">
+	</body>
+</html>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+	<head>
+		<title>设置密码</title>
+		<#include "/common/_include.html">
+	</head>
+	<body>
+		<!-- 头部引用 -->
+		<#include "/common/_header.html">
+		<@headerPage currentPage="index"/>
+		<!--内容开始-->
+		<div class="container">
+			<div class="panel panel-default bo-form">
+				<div class="panel-heading text-center">
+					<h3 class="panel-title">设置密码</h3>
+				</div>
+				<div class="panel-body">
+					<#if __message??><div class="alert alert-danger" role="alert">${__message!}</div></#if>
+					<form action="/auth/setpwd" method="post">
+						<input type="hidden" name="token" value="${token!}" />
+						<div class="input-group input-group-lg bo-mtb20">
+							<span class="input-group-addon">密码</span>
+							<input type="password" name="passwd" class="form-control" placeholder="新密码" aria-describedby="basic-addon1">
+						</div>
+						<div class="input-group input-group-lg bo-mtb20">
+							<span class="input-group-addon" id="basic-addon1">确认</span>
+							<input type="password" name="repasswd" class="form-control" placeholder="确认新密码" aria-describedby="basic-addon1">
+						</div>
+						<div class="input-group bo-mtb20 text-center" style="width: 100%;" role="group" aria-label="...">
+							<button type="button" class="btn btn-default" onclick="$('form').submit();">提交</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+		<!--内容结束-->
+		<#include "/common/_footer.html">
+	</body>
+</html>

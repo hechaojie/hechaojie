@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+	<head>
+		<title>登录</title>
+		<#include "/common/_include.html">
+	</head>
+	<body>
+		<!-- 头部引用 -->
+		<#include "/common/_header.html">
+		<@headerPage currentPage="index"/>
+		<!--内容开始-->
+		<div class="container">
+			<div class="panel panel-default bo-form">
+				<div class="panel-heading text-center">
+					<h3 class="panel-title">用户登录</h3>
+				</div>
+				<div class="panel-body">
+					<#if __message??><div class="alert alert-danger" role="alert">${__message!}</div></#if>
+					<form action="/dologin" method="post">
+						<input type="hidden" name="bk" value="${bk!}" />
+						<div class="input-group input-group-lg bo-mtb20">
+							<span class="input-group-addon">用户</span>
+							<input type="text" name="email" class="form-control" placeholder="请输入用户名" aria-describedby="basic-addon1">
+						</div>
+						<div class="input-group input-group-lg bo-mtb20">
+							<span class="input-group-addon" id="basic-addon1">密码</span>
+							<input type="password" name="password" class="form-control" placeholder="请输入密码" aria-describedby="basic-addon1">
+						</div>
+						<div class="input-group input-group-lg bo-mtb20 row">
+							<div class="col-xs-6 col-sm-7 col-md-8">
+								<input type="text" name="code" class="form-control" placeholder="请输入验证码" aria-describedby="basic-addon1">
+							</div>
+							<div class="col-xs-6 col-sm-5 col-md-4">
+								<img id="logincode" width="80" height="38" src="/logincode?t=${t!}&" />
+							</div>
+						</div>
+						<div class="input-group bo-mtb20 text-center" style="width: 100%;" role="group" aria-label="...">
+							<button type="button" class="btn btn-default" onclick="$('form').submit();">登录</button>
+						</div>
+					</form>
+					<div>
+						<span class="pull-right"><a href="/forgetone">忘记密码</a></span>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!--内容结束-->
+		<#include "/common/_footer.html">
+	</body>
+</html>
